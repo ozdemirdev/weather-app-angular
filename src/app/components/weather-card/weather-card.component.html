@@ -1,0 +1,6 @@
+<div class="weather-card" [ngClass]="{'sunny': forecast === 'Sunny', 'cloudy': forecast === 'Cloudy', 'rainy': forecast === 'Rainy'}">
+    <div class="date">{{ date }}</div>
+    <div class="forecast">{{ forecast }}</div>
+    <div class="lowest-temp">Lowest Temp: {{ lowestTemp }}°C</div>
+  </div>
+  

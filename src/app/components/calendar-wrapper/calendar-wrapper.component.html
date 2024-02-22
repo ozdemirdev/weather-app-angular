@@ -1,0 +1,18 @@
+<div class="calendar">
+    <div class="week-labels">
+        <div>Mo</div>
+        <div>Tu</div>
+        <div>We</div>
+        <div>Th</div>
+        <div>Fr</div>
+        <div>Sa</div>
+        <div>Su</div>
+      </div>
+      
+    <div class="days">
+      <div class="day" *ngFor="let day of getMonthDays()">
+        <app-weather-card [date]="day | date: 'd'"></app-weather-card>
+        
+      </div>
+    </div>
+  </div>

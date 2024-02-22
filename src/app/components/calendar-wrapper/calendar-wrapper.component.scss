@@ -1,0 +1,35 @@
+.calendar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1px;
+    padding: 0 150px;
+
+
+    .week-labels {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      width: 100%;
+      div{
+        width: 100%;
+      }
+    }
+  
+    .day-label {
+      text-align: center;
+      padding: 8px;
+    }
+  
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      width: 100%;
+    }
+  
+    .day {
+      text-align: center;
+      padding: 8px;
+    }
+  }
