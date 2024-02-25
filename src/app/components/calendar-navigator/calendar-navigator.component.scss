@@ -1,0 +1,30 @@
+.calendar-navigator-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: static;
+    
+    .nav-items {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 360px;
+        padding: 20px 0;
+
+        button{
+            background-color: transparent;
+            border: none;
+            outline: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    }
+}
+
+.active-month{
+    background-color: #0D9276;
+    color: #fff;
+    padding: 5px;
+}

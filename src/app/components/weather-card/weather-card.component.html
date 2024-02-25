@@ -1,6 +1,29 @@
-<div class="weather-card" [ngClass]="{'sunny': forecast === 'Sunny', 'cloudy': forecast === 'Cloudy', 'rainy': forecast === 'Rainy'}">
-    <div class="date">{{ date }}</div>
-    <div class="forecast">{{ forecast }}</div>
-    <div class="lowest-temp">Lowest Temp: {{ lowestTemp }}°C</div>
+<div class="weather-card-wrapper" 
+[ngClass]="[!isActiveMonth ? 'disabled' : '', isToday ? 'today' : '']" [style.background-color]="customBackgroundColor">
+  <div class="weather-card">
+    <div class="row">
+      <div class="col">Antalya, Turkey</div>
+      <div class="col pen-icon">
+        <!-- <fa-icon class="" [icon]="faMagnifyingGlass"></fa-icon> -->
+        <input type="color" [ngModel]="customBackgroundColor" (change)="setColor($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col flex-row">
+        <div class="actual-degree">{{forecast | number: "1.0-0"}}°</div>
+        <div class="secondary-text">Feels like {{feelsLike | number: "1.0-0"}}°</div>
+      </div>
+      <div class="col"></div>
+    </div>
+    <div class="row">
+      <div class="col date">{{ date | date}}</div>
+      <div class="col flex-column">
+        <div>Min {{lowestTemp}}°</div>
+        <div>Night {{highestTemp}}°</div>
+      </div>
+    </div>
+    <div class="weather-icon">
+      <img [src]="weatherCodeIcon">
+    </div>
   </div>
-  
+</div>

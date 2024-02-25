@@ -1,34 +1,27 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { format, getDaysInMonth, startOfMonth, addDays, startOfWeek, endOfWeek } from 'date-fns';
+import { format, getDaysInMonth, startOfMonth, addDays, startOfWeek, endOfWeek, getUnixTime } from 'date-fns';
 import { WeatherCardComponent } from '../weather-card/weather-card.component';
+import { WeatherService } from '../../services/weather.service';
 
 @Component({
   selector: 'app-calendar-wrapper',
   standalone: true,
   imports: [CommonModule, WeatherCardComponent],
+  providers: [WeatherService],
   templateUrl: './calendar-wrapper.component.html',
   styleUrl: './calendar-wrapper.component.scss'
 })
-export class CalendarWrapperComponent {
+export class CalendarWrapperComponent implements OnInit, OnChanges{
 
   @Input() selectedDate: Date = new Date();
+  @Input() days!: any[];
+  @Input() weatherData: any = {};
+  @Input() forecastData: any = {};
 
-  getMonthDays(): Date[] {
-    const startOfMonthDate = startOfMonth(this.selectedDate);
-    const endOfMonthDate = addDays(startOfMonthDate, getDaysInMonth(this.selectedDate) - 1);
-    const startOfWeekDate = startOfWeek(startOfMonthDate, { weekStartsOn: 1 }); // Monday as first day
-    const endOfWeekDate = endOfWeek(endOfMonthDate, { weekStartsOn: 1 }); // Monday as first day
-    const days: Date[] = [];
+  splittedDays: any[] = [];
 
-    let currentDate = startOfWeekDate;
-    while (currentDate <= endOfWeekDate) {
-      days.push(currentDate);
-      currentDate = addDays(currentDate, 1);
-    }
-
-    return days;
-  }
+  constructor(private weatherService: WeatherService, private cdr: ChangeDetectorRef) { }
 
   getDayLabel(day: Date): string {
     return format(day, 'eeeeee');
@@ -37,4 +30,17 @@ export class CalendarWrapperComponent {
   getDayD(day: Date): string {
     return format(day, 'd')
   }
+
+  ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.splitDays()
+  }
+
+  splitDays(){
+    this.splittedDays = [this.days.slice(0, this.weatherData['temperature_2m_mean']?.length), 
+    this.days.slice(this.weatherData['temperature_2m_mean']?.length, this.days.length)]
+  }
+
 }

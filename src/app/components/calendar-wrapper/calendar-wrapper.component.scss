@@ -4,22 +4,22 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 1px;
-    padding: 0 150px;
-
+    max-width: 1450px;
+    overflow-x: scroll;
 
     .week-labels {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       width: 100%;
       div{
-        width: 100%;
+        min-width: 195px;
+        padding: 5px;
       }
     }
   
     .day-label {
       text-align: center;
-      padding: 8px;
+      padding: 5px;
     }
   
     .days {
@@ -30,6 +30,6 @@
   
     .day {
       text-align: center;
-      padding: 8px;
+      padding: 5px;
     }
   }

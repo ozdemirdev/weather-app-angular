@@ -1,0 +1,7 @@
+<div class="calendar-navigator-wrapper" >
+    <div class="nav-items">
+        <button (click)="goPrev()"><fa-icon [icon]="faChevronCircleLeft"></fa-icon></button>
+        <div [ngClass]="[currentMonthCheck() ? 'active-month' : '']">{{activeDate | date}}</div>
+        <button (click)="goNext()"><fa-icon [icon]="faChevronCircleRight"></fa-icon></button>
+    </div>
+</div>

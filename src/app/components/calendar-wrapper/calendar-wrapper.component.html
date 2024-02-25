@@ -1,18 +1,41 @@
-<div class="calendar">
-    <div class="week-labels">
-        <div>Mo</div>
-        <div>Tu</div>
-        <div>We</div>
-        <div>Th</div>
-        <div>Fr</div>
-        <div>Sa</div>
-        <div>Su</div>
-      </div>
-      
-    <div class="days">
-      <div class="day" *ngFor="let day of getMonthDays()">
-        <app-weather-card [date]="day | date: 'd'"></app-weather-card>
-        
-      </div>
-    </div>
+<div class="calendar" *ngIf="forecastData['temperature_2m_mean'] || weatherData['temperature_2m_mean'] else noData">
+  <div class="week-labels">
+    <div>Mo</div>
+    <div>Tu</div>
+    <div>We</div>
+    <div>Th</div>
+    <div>Fr</div>
+    <div>Sa</div>
+    <div>Su</div>
   </div>
+
+  <div class="days">
+    <ng-template [ngIf]="weatherData['temperature_2m_mean']">
+      <div class="day" *ngFor="let day of splittedDays[0]; index as i">
+        <app-weather-card *ngIf="weatherData['time'][i]" [date]="day" [activeDate]="selectedDate"
+          [forecast]="weatherData['temperature_2m_mean'][i]" [feelsLike]="weatherData['apparent_temperature_mean'][i]"
+          [lowestTemp]="weatherData['temperature_2m_min'][i]"
+          [highestTemp]="weatherData['temperature_2m_max'][i]"
+          [weatherCode]="weatherData['weather_code'][i]"
+          ></app-weather-card>
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="forecastData['temperature_2m_mean'] && splittedDays[1]">
+      <div class="day" *ngFor="let day of splittedDays[1]; index as k">
+        <app-weather-card *ngIf="forecastData['time'][k]" [date]="day" [activeDate]="selectedDate"
+          [forecast]="forecastData['temperature_2m_mean'][k]" [feelsLike]="forecastData['apparent_temperature_mean'][k]"
+          [lowestTemp]="forecastData['temperature_2m_min'][k]"
+          [highestTemp]="forecastData['temperature_2m_max'][k]"
+          [weatherCode]="weatherData['weather_code'][k]"
+          ></app-weather-card>
+      </div>
+    </ng-template>
+
+  </div>
+</div>
+
+<ng-template #noData>
+<div>
+  No Data
+</div>
+</ng-template>

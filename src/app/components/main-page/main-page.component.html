@@ -1,1 +1,2 @@
-<app-calendar-wrapper></app-calendar-wrapper>
+<app-calendar-navigator (dateChange)="dateTrigger($event)"></app-calendar-navigator>
+<app-calendar-wrapper [selectedDate]="activeDate" [weatherData]="weatherData" [forecastData]="forecastData" [days]="days"></app-calendar-wrapper>
